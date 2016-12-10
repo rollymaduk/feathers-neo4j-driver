@@ -1,17 +1,22 @@
 {
   "name": "feathers-neo4j-driver",
   "description": "A feathers service wrapper around neo4j-driver",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "homepage": "https://github.com/rollymaduk/feathers-neo4j-driver",
   "main": "lib/",
   "keywords": [
     "feathers",
     "feathers-plugin"
   ],
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rollymaduk/feathers-neo4j-driver.git"
+    "url": "https://github.com/rollymaduk/feathers-neo4j-driver.git"
   },
   "author": {
     "name": "Feathers contributors",
@@ -31,25 +36,41 @@
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
-    "compile": "rm -rf lib/ && babel -d lib/ src/",
+    "commit": "git cz -a",
+    "compile": "rimraf -rf lib/ && babel -d lib/ src/",
     "watch": "babel --watch -d lib/ src/",
     "jshint": "jshint src/. test/. --config",
     "mocha": "mocha test/ --compilers js:babel-core/register",
-    "test": "npm run compile && npm run jshint && npm run mocha"
+    "tape": "tape -r babel-register test/**/*.js ",
+    "test": "npm run compile && npm run jshint && npm run tape",
+    "semantic-release": "semantic-release pre && semantic-release post"
   },
   "directories": {
     "lib": "lib"
   },
   "dependencies": {
-    "debug": "^2.3.3"
+    "debug": "^2.3.3",
+    "es6-promisify": "^5.0.0",
+    "lodash": "^4.17.2",
+    "neo4j": "^2.0.0-RC2",
+    "neo4j-driver": "^1.1.0-M03"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.20.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
+    "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "feathers": "^2.0.2",
+    "feathers-rest": "^1.5.2",
+    "feathers-socketio": "^1.4.2",
     "jshint": "^2.9.4",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "rimraf": "^2.5.4",
+    "semantic-release": "^6.3.2",
+    "tape": "^4.6.3"
   }
 }
