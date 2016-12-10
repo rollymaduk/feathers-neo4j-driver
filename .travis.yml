@@ -13,7 +13,7 @@ node_js:
   - '4'
 before_install:
   - sudo apt-get install curl libc6 libcurl3 zlib1g
-  - curl -H "Content-Type:application/json" -X POST -d '{"password":"enter"}' -u neo4j:neo4j http://localhost:7474/user/neo4j/password
+  - curl -H "Content-Type:application/json" -X POST -d '{"password":"enter"}' -u neo4j:neo4j http://0.0.0.0:7474/user/neo4j/password
 
 before_script:
   - npm prune
