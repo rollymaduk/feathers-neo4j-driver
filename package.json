@@ -40,9 +40,10 @@
     "compile": "rimraf -rf lib/ && babel -d lib/ src/",
     "watch": "babel --watch -d lib/ src/",
     "jshint": "jshint src/. test/. --config",
+    "lint": "semistandard src/. test/. --fix",
     "mocha": "mocha test/ --compilers js:babel-core/register",
     "tape": "tape -r babel-register test/**/*.js ",
-    "test": "npm run compile && npm run jshint && npm run tape",
+    "test": "npm run compile && npm run lint && npm run tape",
     "semantic-release": "semantic-release pre && semantic-release post"
   },
   "directories": {
@@ -71,6 +72,7 @@
     "mocha": "^2.5.3",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.2",
+    "semistandard": "^9.2.1",
     "tape": "^4.6.3"
   }
 }
