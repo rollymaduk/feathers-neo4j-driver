@@ -11,7 +11,7 @@ node_js:
   - '7'
   - '6'
   - '4'
-before_install
+before_install:
   - apt-get install httpie
   - http -a neo4j:neo4j POST http://localhost:7474/user/neo4j/password password=enter
 
