@@ -12,11 +12,8 @@ node_js:
   - '6'
   - '4'
 before_install:
-  - cd /tmp
-  - wget https://goo.gl/DhZejK -O httpie_0.8.0-1_arm64.deb
-  - sudo dpkg -i --force-depends httpie_0.8.0-1_arm64.deb
-  - sudo apt-get -f install
-  - http -a neo4j:neo4j POST http://localhost:7474/user/neo4j/password password=enter
+  - sudo apt-get install curl libc6 libcurl3 zlib1g
+  - curl -H "Content-Type:application/json" -X POST -d '{"password":"enter"}' -u neo4j:neo4j http://localhost:7474/user/neo4j/password
 
 before_script:
   - npm prune
