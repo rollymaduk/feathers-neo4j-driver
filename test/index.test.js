@@ -53,7 +53,7 @@ test('executes single cypher query',(t)=>{
   server.once('listening',()=>{
     const service=app.service('neo4j')
     service.create({query:'CREATE (n:TESTNODE {key:{value}})',params:{value:"my value"}}).then((res)=>{
-      chai.request('http://neo4j:enter@localhost:7474')
+      chai.request('http://neo4j:neo4j@localhost:7474')
         .post('/db/data/transaction/commit')
         .set('Accept','application/json')
         .send({statements:[{statement:'MATCH (n:TESTNODE {key:{value}}) return n',parameters:{value:"my value"}}]})
@@ -78,7 +78,7 @@ test('executes batch cypher query',(t)=>{
   server.once('listening',()=>{
     const service=app.service('neo4j')
     service.create([{query:'CREATE (n:TESTNODE {key:{value}})',params:{value:"my value"}}]).then((res)=>{
-      chai.request('http://neo4j:enter@localhost:7474')
+      chai.request('http://neo4j:neo4j@localhost:7474')
        .post('/db/data/transaction/commit')
        .set('Accept','application/json')
        .send({statements:[{statement:'MATCH (n:TESTNODE {key:{value}}) return n',parameters:{value:"my value"}}]})
