@@ -48,12 +48,12 @@ test('throws error without pass auth',(t)=>{
   t.throws(()=>plugin({uri:'path',user:""}),"neo4J requires auth pass!")
   t.end()
 })
-test('executes single cypher query',(t)=>{
+test.skip('executes single cypher query',(t)=>{
   const server=app.listen(port);
   server.once('listening',()=>{
     const service=app.service('neo4j')
     service.create({query:'CREATE (n:TESTNODE {key:{value}})',params:{value:"my value"}}).then((res)=>{
-      chai.request('http://neo4j:neo4j@localhost:7474')
+      chai.request('http://neo4j:enter@localhost:7474')
         .post('/db/data/transaction/commit')
         .set('Accept','application/json')
         .send({statements:[{statement:'MATCH (n:TESTNODE {key:{value}}) return n',parameters:{value:"my value"}}]})
@@ -72,13 +72,13 @@ test('executes single cypher query',(t)=>{
 
 })
 
-test('executes batch cypher query',(t)=>{
+test.skip('executes batch cypher query',(t)=>{
 
   const server=app.listen(port);
   server.once('listening',()=>{
     const service=app.service('neo4j')
     service.create([{query:'CREATE (n:TESTNODE {key:{value}})',params:{value:"my value"}}]).then((res)=>{
-      chai.request('http://neo4j:neo4j@localhost:7474')
+      chai.request('http://neo4j:enter@localhost:7474')
        .post('/db/data/transaction/commit')
        .set('Accept','application/json')
        .send({statements:[{statement:'MATCH (n:TESTNODE {key:{value}}) return n',parameters:{value:"my value"}}]})

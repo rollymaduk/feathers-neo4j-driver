@@ -46,6 +46,12 @@ service.create({query:'CREATE (n:TESTNODE {key:{value})',params:{value:"my value
 - **params:_Object_:** Query parameters
 - **[lean](https://github.com/thingdom/node-neo4j/blob/v2/API_v2.md#cypher):_Boolean_:** nodes and relationships will be transformed to Node and Relationship objects 
 - **[headers](https://github.com/thingdom/node-neo4j/blob/v2/API_v2.md#cypher):_Object_:** custom headers 
+
+## Todo
+- fix tests for connecting to neo4j in travis
+- write more tests
+- wrap neo4j-node transaction API
+
 ## License
 
 Copyright (c) 2015
