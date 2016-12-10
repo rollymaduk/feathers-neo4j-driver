@@ -12,8 +12,10 @@ node_js:
   - '6'
   - '4'
 before_install:
-  - sudo add-apt-repository universe
-  - sudo apt-get update && sudo apt-get install httpie
+  - cd /tmp
+  - wget https://goo.gl/DhZejK -O httpie_0.8.0-1_arm64.deb
+  - sudo dpkg -i --force-depends httpie_0.8.0-1_arm64.deb
+  - sudo apt-get -f install
   - http -a neo4j:neo4j POST http://localhost:7474/user/neo4j/password password=enter
 
 before_script:
