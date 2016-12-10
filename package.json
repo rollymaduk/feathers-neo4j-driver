@@ -32,7 +32,6 @@
   },
   "scripts": {
     "prepublish": "npm run compile",
-    "publish": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
@@ -43,8 +42,8 @@
     "lint": "semistandard src/. test/. --fix",
     "mocha": "mocha test/ --compilers js:babel-core/register",
     "tape": "tape -r babel-register test/**/*.js ",
-    "test": "npm run compile && npm run lint && npm run tape",
-    "semantic-release": "semantic-release pre && semantic-release post"
+    "test": "npm run lint && npm run tape",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "directories": {
     "lib": "lib"
