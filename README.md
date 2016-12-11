@@ -32,6 +32,12 @@ service.create({query:'CREATE (n:TESTNODE {key:{value})',params:{value:"my value
     
 }).catch(err=>err)
 ```
+## API
+- **create(pluginOptions):** creates a new cypher query in neo4j _see plugin options below_
+- **queryTransaction(pluginOptions):** creates a new cypher query as a transaction neo4j _see plugin options below_
+- **commitTransaction():** commits a cypher transaction  
+- **rollbackTransaction():** rolls back a cypher transaction  
+
 ## Config Options
 - **uri:_String_** neo4j server url
 - **user:_String_** username for basic authentication to neo4j db
@@ -50,7 +56,6 @@ service.create({query:'CREATE (n:TESTNODE {key:{value})',params:{value:"my value
 ## Todo
 - fix tests for connecting to neo4j in travis
 - write more tests
-- wrap neo4j-node transaction API
 
 ## License
 

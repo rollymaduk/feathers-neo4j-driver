@@ -17,10 +17,10 @@ class Service{
     if(!isString(options && options.pass))
       throw new Error('neo4J requires auth pass!')
     this.db=new neo4j.GraphDatabase({url:options.uri,auth:{username:options.user,password:options.pass}})
+
     //this.driver=neo4j.driver(options.uri,neo4j.auth.basic(options.user,options.pass))
   }
-  create(params){
-    const cypher=promisify(this.db.cypher,this.db)
+  _executeQuery(params,cypher){
     const query=(isArray(params))?{queries:params}:params
     return cypher(query).then((res)=>{
       return res
@@ -28,8 +28,32 @@ class Service{
       console.log(err)
       return err
     })
-
   }
+
+  create(params){
+    const cypher=promisify(this.db.cypher,this.db)
+    return this._executeQuery(params,cypher)
+  }
+
+  queryTransaction(params){
+    this._tranx=this._tranx || this.db.beginTransaction()
+    const cypher=promisify(this._tranx.cypher,this._tranx)
+    return this._executeQuery(params,cypher)
+  }
+
+  commitTransaction(){
+    const commit=promisify(this._tranx.commit,this._tranx)
+    return commit().then(()=>{
+      this._tranx=undefined
+    })
+  }
+  rollbackTransaction(){
+    const rollback=promisify(this._tranx.rollback,this._tranx)
+    return rollback().then(()=>{
+      this._tranx=undefined
+    })
+  }
+
 }
 export default function init(options) {
   debug('Initializing feathers-neo4j-driver plugin');
