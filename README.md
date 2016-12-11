@@ -59,6 +59,6 @@ service.create({query:'CREATE (n:TESTNODE {key:{value})',params:{value:"my value
 
 ## License
 
-Copyright (c) 2015
+Copyright (c) 2016
 
 Licensed under the [MIT license](LICENSE).
