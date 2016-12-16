@@ -107,7 +107,7 @@ test.skip('executes batch cypher query',(t)=>{
       })
   })
 //})
-test("cypher error is thrown",(t)=>{
+test.skip("cypher error is thrown",(t)=>{
   "use strict";
   const service=app.service('neo4j')
  service.create({query:'CREATE (n:TESTNODE {key:{value}}',params:{value:"my value"}})
