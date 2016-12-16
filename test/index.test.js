@@ -12,10 +12,10 @@ chai.use(chai_http)
 app.use(bodyParser.json())
   .use(bodyParser.urlencoded({extended: true }))
   .configure(rest())
-  .use('/neo4j',plugin({uri:'http://localhost:7474',user:'neo4j',pass:'neo4j'}))
+  .use('/neo4j',plugin({uri:'http://localhost:7474',user:'neo4j',pass:'enter'}))
 
 function _executeQuery(query,cb){
-  chai.request('http://neo4j:neo4j@localhost:7474')
+  chai.request('http://neo4j:enter@localhost:7474')
     .post('/db/data/transaction/commit')
     .set('Accept','application/json')
     .send({statements:query})
@@ -23,6 +23,7 @@ function _executeQuery(query,cb){
       cb.call(null,err,res)
     })
 }
+
 function _cleanUp(cb){
   return executeQuery([{statement:'MATCH (n:TESTNODE) delete n'}]).then(()=>{
     cb.call(null)
@@ -106,6 +107,15 @@ test.skip('executes batch cypher query',(t)=>{
       })
   })
 //})
+test("cypher error is thrown",(t)=>{
+  "use strict";
+  const service=app.service('neo4j')
+ service.create({query:'CREATE (n:TESTNODE {key:{value}}',params:{value:"my value"}})
+   .catch(err=>{
+    t.error(err)
+     t.end()
+ })
+})
 
 test.skip('commits cypher transactions',(t)=>{
   const service=app.service('neo4j')

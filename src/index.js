@@ -25,8 +25,8 @@ class Service{
     return cypher(query).then((res)=>{
       return res
     }).catch((err)=>{
-      console.log(err)
-      return err
+      //console.log(err)
+      throw err
     })
   }
 
